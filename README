@@ -1,0 +1,121 @@
+Files for running nfd NDN Testbed tests on ONL.
+
+Key scripts in each test directory:
+ONL_RLI_Files  : The files in this directory need to be copied to your .onldir on 
+                 the machine where you will run the ONL RLI
+mkAll.sh       : Use this script to configure your test. You can control the number of
+                 traffic client/server pairs, the protocol for the faces, the delay 
+                 interval for ndn-traffic-client, the number of segments in the ndn 
+                 names and the length of each segment. This script creates other 
+                 scripts that will then be used to configure and run your test.
+cleanAll.sh    : This script removes all the scripts and configuration files that 
+                 were created by mkAll.sh
+killAll.sh     : This script kills all the processes (nfd, nrd, ndn-traffic-client, 
+                 ndn-traffic-server) that were run for your test.
+runAll.sh      : This script configures and runs the test.
+hosts	       : This script coincides with the ONL RLI files and defines the hosts 
+                 in your topology. If you change the topology in the RLI you might 
+                 need to change this file as well. This file is used to tell the 
+                 mkAll.sh script which hosts are clients, servers and rtr.
+
+ONL_RLI_Files:
+    HOST2core.shw, PC2core.hw  : These are hardware description files for the pc2core 
+                                 machines used in this topology. The pc2core machines 
+                                 are new to ONL and are only built into new versions of
+                                 the RLI. If you have version 8.0 or later you do
+                                 not need these files. If you have 7.x or earlier
+                                 you do need them.
+    Testbed_West3 : This is the topology file that will be loaded 
+                                into the RLI for your experiment.
+
+Steps:
+  0. Need to learn about ONL or get an account: https://onl.wustl.edu/
+  1. Start the RLI on your laptop (or desktop machine, or...)
+  2. Load the topology file:
+         Go to the File menu and click on Open.
+         Find the nfd_16_clients_16_servers_1_rtr file, click on it and click Open.
+  3. Make a reservation
+         Go to the File menu and click on Make Reservation. 
+  4. Commit
+         The commit operation will take a couple/few minutes.
+         When it says "Commit Completed" at the bottom of the RLI, 
+         move on to the next step.
+  5. In a terminal window log in to ONL.
+  6. Retrieve the repo into your ONL home directory:
+        git clone http://github.com/WU-ARL/NFD_NDN_Testbed_on_ONL
+  7. Set up to run without sudo access. You will need a client.conf
+     file on ONL: ~/.ndn/client.conf . It should contain the following
+     two lines:
+         unix_socket=/tmp/nfd.sock
+         protocol=nrd-0.1
+
+     This puts the nfd socket file in /tmp instead of the default /var/run/
+     Running without sudo will cause a couple of errors when starting nfd.
+     Something like these two:
+     1398111630.734668 ERROR: [FaceManager] pcap_activate() failed, continuing
+     1398111630.734820 ERROR: [FaceManager] pcap_activate() failed, continuing
+     These occur when nfd tries to enable promiscuous mode on the ethernet interface
+     for ethernet faces. These are ok for now, we are not currently using
+     ethernet faces on ONL.
+
+  8. Set up a key and certificate. On one of your hosts (NOT onlusr) you will
+     need to run the following:
+          # In the NFD_NDN_Testbed_on_ONL/Variable_Length_Names direcotry
+          # do the following.
+
+          # This checks to see if you already have a cert installed.
+          > ndnsec-cert-dump -i /`whoami` 
+
+          # If you already have a cert installed, skip this step and
+          # go to the extraction step.
+          # If you need to install one, 
+          # this installs a cert into your local environment:
+          > ndnsec-keygen /`whoami` | ndnsec-install-cert -
+
+          # This extracts the cert so you can point to it in configuration 
+          # files for nfd and nrd:
+          > ndnsec-cert-dump -i /`whoami` >  default.ndncert
+
+          # This sets up the file that nrd needs
+          > ln -s default.ndncert trust-anchor.cert
+
+
+
+  9. Try the Variable_Length_Names test. 
+     Do the following on onlusr:
+
+     > cd NFD_NDN_Testbed_on_ONL/Variable_Length_Names
+
+     # To see the mkAll.sh Usage message:
+     > ./mkAll.sh
+     Usage: ./mkAll.sh <count> <proto> <interval> <num name segments> <segment length>
+
+     # configure test with 16 client/server pairs, udp4 faces, 10ms interval between
+     #   interests and NDN names with 4 segments with 5 characters in each segment:
+     > ./mkAll.sh 16 udp4 10 4 5
+
+     # run the tst
+     > ./runAll.sh
+
+     This takes a couple of minutes to run and you'll see lots of 
+     messages about what it is doing.
+     When you see this:
+
+        runTrafficServers.sh
+        runTrafficClients.sh
+
+      everything should be running and you should see traffic being displayed in 
+      the monitoring windows.
+
+
+  10. When you are ready to stop the experiment:
+      > ./killAll.sh
+
+  11. If you want to clear away the created scripts and log files:
+      > ./cleanAll.sh
+
+  12. Then you can configure another script with different arguments 
+      to mkAll.sh if you want.
+
+
+
