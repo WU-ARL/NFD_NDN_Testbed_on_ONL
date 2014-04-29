@@ -1,0 +1,35 @@
+
+SITES="CSU AZ REMAP UCI UCLA UCSD PKU TONGJI"
+
+CSU_RTR="h1x2"
+CSU_CLIENTS="h2x2 h2x3"
+CSU_PREFIX="ndn:/ndn/edu/colostate"
+
+AZ_RTR="h3x2"
+AZ_CLIENTS="h4x2 h4x3"
+AZ_PREFIX="ndn:/ndn/edu/arizona"
+
+REMAP_RTR="h5x2"
+REMAP_CLIENTS="h6x2 h6x3"
+REMAP_PREFIX="ndn:/ndn/edu/ucla/remap"
+
+UCI_RTR="h7x2"
+UCI_CLIENTS="h8x2 h8x3"
+UCI_PREFIX="ndn:/ndn/edu/uci"
+
+UCLA_RTR="h9x2"
+UCLA_CLIENTS="h10x2 h10x3"
+UCLA_PREFIX="ndn:/ndn/edu/ucla"
+
+UCSD_RTR="h11x2"
+UCSD_CLIENTS="h12x2 h12x3"
+UCSD_PREFIX="ndn:/ndn/org/caida"
+
+PKU_RTR="h13x2"
+PKU_CLIENTS="h14x2 h14x3"
+PKU_PREFIX="ndn:/ndn/cn/edu/pku"
+
+TONGJI_RTR="h15x2"
+TONGJI_CLIENTS="h16x2 h16x3"
+TONGJI_PREFIX="ndn:/ndn/cn/edu/tongji"
+
