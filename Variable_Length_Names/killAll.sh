@@ -14,7 +14,7 @@ do
   printf -v CLIENT_HOSTS "$CLIENTS_NAME"
   #echo "$s clients: ${!CLIENT_HOSTS}"
 
-  echo "Killing nfd for site: $s"
+  echo "Killing nrd and nfd for site: $s"
   for h in ${!CLIENT_HOSTS}
   do
     ssh ${!h} "killall nrd"

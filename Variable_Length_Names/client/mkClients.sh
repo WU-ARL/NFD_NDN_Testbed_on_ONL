@@ -87,7 +87,7 @@ done
 INDEX=0
 HOSTINDEX=0
 PCT=$((100/$COUNT))
-echo "PCT=$PCT"
+#echo "PCT=$PCT"
 
 while [ $INDEX -ne $COUNT ]
 do
@@ -117,10 +117,12 @@ do
         S_EXT="${P}"
       fi
     fi
+    echo "" >> $FILENAME
     echo "TrafficPercentage=$PCT" >>  $FILENAME
     echo "Name=${PREFIX_LIST[$P]}${NAME}${S_EXT}" >> $FILENAME
     echo "MustBeFresh=1" >> $FILENAME
     echo "NameAppendSequenceNumber=1" >> $FILENAME
+    echo "" >> $FILENAME
     P=$(($P+1))
   done
   #for p in $PREFIXES
@@ -131,7 +133,7 @@ do
   #  echo "MustBeFresh=1" >> $FILENAME
   #  echo "NameAppendSequenceNumber=1" >> $FILENAME
   #done
-  echo " ssh \$${HOST_LIST[$HOSTINDEX]} \"cd \$CWD/client ; ndn-traffic -i \$INTERVAL $FILENAME >& client_$EXT.log &\"  " >> ../runTrafficClients.sh
+  echo " ssh \$${HOST_LIST[$HOSTINDEX]} \"cd \$CWD/client ; ndn-traffic -i \$INTERVAL $FILENAME >& client_$C_EXT.log &\"  " >> ../runTrafficClients.sh
   #echo "TrafficPercentage=100" >  $FILENAME
   ##echo "Name=/example/$EXT" >> $FILENAME
   #echo "Name=${PREFIX_LIST[$HOSTINDEX]}${NAME}${EXT}" >> $FILENAME
