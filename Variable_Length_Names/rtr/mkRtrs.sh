@@ -486,7 +486,7 @@ do
     COST=2
     echo "nfdc add-nexthop -c $COST ${PREFIX} $FACE_ID " >> $FILENAME
     PREFIX=$UCLA_PREFIX
-    COST=2
+    COST=1
     echo "nfdc add-nexthop -c $COST ${PREFIX} $FACE_ID " >> $FILENAME
     PREFIX=$UCSD_PREFIX
     COST=2
