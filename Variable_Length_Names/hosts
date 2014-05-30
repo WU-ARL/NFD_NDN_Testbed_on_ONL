@@ -1,5 +1,5 @@
 
-SITES="CSU AZ REMAP UCI UCLA UCSD PKU TONGJI"
+SITES="CSU AZ REMAP UCI UCLA UCSD PKU TONGJI WASHU UIUC MICH UM NEU LIP6"
 
 CSU_RTR="h1x2"
 CSU_CLIENTS="h2x2 h2x3"
@@ -32,4 +32,28 @@ PKU_PREFIX="ndn:/ndn/cn/edu/pku"
 TONGJI_RTR="h15x2"
 TONGJI_CLIENTS="h16x2 h16x3"
 TONGJI_PREFIX="ndn:/ndn/cn/edu/tongji"
+
+WASHU_RTR="h38x2"
+WASHU_CLIENTS="h39x2 h39x3"
+WASHU_PREFIX="ndn:/ndn/edu/wustl"
+
+UIUC_RTR="h30x2"
+UIUC_CLIENTS="h31x2 h31x3"
+UIUC_PREFIX="ndn:/ndn/edu/uiuc"
+
+MICH_RTR="h28x2"
+MICH_CLIENTS="h29x2 h29x3"
+MICH_PREFIX="ndn:/ndn/edu/umich"
+
+UM_RTR="h36x2"
+UM_CLIENTS="h37x2 h37x3"
+UM_PREFIX="ndn:/ndn/edu/memphis"
+
+NEU_RTR="h32x2"
+NEU_CLIENTS="h33x2 h33x3"
+NEU_PREFIX="ndn:/ndn/edu/neu"
+
+LIP6_RTR="h34x2"
+LIP6_CLIENTS="h35x2 h35x3"
+LIP6_PREFIX="ndn:/ndn/fr/lip6"
 
